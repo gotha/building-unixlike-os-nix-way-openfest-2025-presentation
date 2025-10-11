@@ -67,5 +67,23 @@ figcaption {
 .reveal pre code {
     color: #f8f8f8 !important;
     background-color: rgba(0, 0, 0, 0.5) !important; /* Darker background for code blocks */
+    max-height: 700px;
 }
+
+.reveal pre code .va {
+  color: #65aaec;
+}
+
+.reveal pre code .kw {
+  color: #f16f67;
+}
+
+.reveal pre code .bu {
+  color: #f16f67;
+}
+
+.reveal pre code .st {
+  color: #007020;
+}
+
 </style>

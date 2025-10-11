@@ -50,6 +50,12 @@
               --variable parallaxBackgroundSize="cover" \
               --variable revealjs-url="./reveal.js/" \
               --variable notes=true
+
+            # Add cache-busting meta tags to the HTML
+            sed -i 's|<head>|<head>\n  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n  <meta http-equiv="Pragma" content="no-cache">\n  <meta http-equiv="Expires" content="0">|' $out/index.html
+
+            # Add script to automatically open speaker notes
+            # sed -i 's|</body>|<script>\n  Reveal.addEventListener("ready", function() {\n    // Auto-open speaker notes\n    if (!window.location.search.includes("receiver")) {\n      Reveal.getPlugin("notes").open();\n    }\n  });\n</script>\n</body>|' $out/index.html
           '';
 
           installPhase = ''
