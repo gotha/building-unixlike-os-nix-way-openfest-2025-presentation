@@ -21,6 +21,9 @@
           buildPhase = ''
             mkdir -p $out
 
+            cp -r img $out/
+            BACKGROUND_IMAGE="./img/background.jpg"
+
             pandoc slides.md \
               -t revealjs \
               -s \
@@ -28,7 +31,9 @@
               -o $out/index.html \
               --slide-level=2 \
               --variable theme=white \
-              --variable transition=slide
+              --variable transition=slide \
+              --variable parallaxBackgroundImage="$BACKGROUND_IMAGE" \
+              --variable parallaxBackgroundSize="cover"
           '';
 
           installPhase = ''
