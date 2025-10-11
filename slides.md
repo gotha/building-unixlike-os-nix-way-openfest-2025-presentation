@@ -11,6 +11,12 @@ date: October 19, 2025
 - why you should listen to me?
 - disclaimer
 
+<aside class="notes">
+Imagine everyone is naked!
+
+I did not mean literally everyone, obviously!
+</aside>
+
 ---
 
 ## What are we going to talk about today 

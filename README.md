@@ -10,5 +10,9 @@ nix build
 
 ## Run
 
-just open ./result/index.html with your browser
+```sh
+python -m http.server 8000 -d result/
+```
+
+open http://localhost:8000 in your browser and press `s` to activate 'speaker notes'
 

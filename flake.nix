@@ -12,6 +12,13 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
+        revealjs = pkgs.fetchFromGitHub {
+          owner = "hakimel";
+          repo = "reveal.js";
+          rev = "4.3.1";
+          sha256 = "sha256-saCLoiP6ZtCPxlFV6exNoo9Lkq+zj0FPFPpnBRP4SPI=";
+        };
+
         presentation = pkgs.stdenv.mkDerivation {
           name = "of25-nix-presentation";
           src = ./.;
@@ -21,9 +28,16 @@
           buildPhase = ''
             mkdir -p $out
 
+            # Copy reveal.js to output
+            cp -r ${revealjs} $out/reveal.js
+            chmod -R +w $out/reveal.js
+
             cp -r img $out/
+
+            # Find background image
             BACKGROUND_IMAGE="./img/background.jpg"
 
+            echo "Using background image: $BACKGROUND_IMAGE"
             pandoc slides.md \
               -t revealjs \
               -s \
@@ -33,7 +47,9 @@
               --variable theme=white \
               --variable transition=slide \
               --variable parallaxBackgroundImage="$BACKGROUND_IMAGE" \
-              --variable parallaxBackgroundSize="cover"
+              --variable parallaxBackgroundSize="cover" \
+              --variable revealjs-url="./reveal.js/" \
+              --variable notes=true
           '';
 
           installPhase = ''
@@ -45,14 +61,11 @@
         packages.default = presentation;
 
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [ pandoc ];
+          buildInputs = with pkgs; [ pandoc python312 ];
 
           shellHook = ''
             echo "Development environment with pandoc ready!"
             echo "Pandoc version: $(pandoc --version | head -n1)"
-            echo ""
-            echo "To build the presentation, run: nix build"
-            echo "To serve locally, run: python -m http.server 8000 -d result/"
           '';
         };
       });
