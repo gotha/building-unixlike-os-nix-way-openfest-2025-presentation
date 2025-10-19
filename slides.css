@@ -55,6 +55,10 @@ figcaption {
     color: #e0e0e0 !important; /* Light gray for links */
 }
 
+.reveal pre {
+  font-size: 19px !important;
+}
+
 .reveal a:hover {
     color: #ffffff !important; /* White on hover */
 }
